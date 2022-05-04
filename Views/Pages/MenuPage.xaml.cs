@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using VetClinic.Models;
 
 namespace VetClinic.Views.Pages
 {
@@ -24,5 +13,15 @@ namespace VetClinic.Views.Pages
         {
             InitializeComponent();
         }
+
+        private void BtnPets_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new PetPage());
+
+        private void BtnClients_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new ClientPage());
+
+        private void BtnServices_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new ServicePage());
+
+        private void BtnMedications_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new MedicationsPage());
+
+        private void BtnOrders_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new OrderPage());
     }
 }

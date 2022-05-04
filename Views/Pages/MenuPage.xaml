@@ -17,7 +17,8 @@
         <Button
             Width="150"
             Height="100"
-            Margin="10">
+            Margin="10"
+            Click="BtnPets_OnClick">
             <StackPanel>
                 <md:PackIcon
                     Width="50"
@@ -34,7 +35,8 @@
         <Button
             Width="150"
             Height="100"
-            Margin="10">
+            Margin="10"
+            Click="BtnClients_OnClick">
             <StackPanel>
                 <md:PackIcon
                     Width="50"
@@ -51,7 +53,8 @@
         <Button
             Width="150"
             Height="100"
-            Margin="10">
+            Margin="10"
+            Click="BtnServices_OnClick">
             <StackPanel>
                 <md:PackIcon
                     Width="50"
@@ -68,7 +71,8 @@
         <Button
             Width="150"
             Height="100"
-            Margin="10">
+            Margin="10"
+            Click="BtnMedications_OnClick">
             <StackPanel>
                 <md:PackIcon
                     Width="50"
@@ -85,7 +89,8 @@
         <Button
             Width="150"
             Height="100"
-            Margin="10">
+            Margin="10"
+            Click="BtnOrders_OnClick">
             <StackPanel>
                 <md:PackIcon
                     Width="50"
