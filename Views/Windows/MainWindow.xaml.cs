@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using VetClinic.Models;
+using VetClinic.Views.Pages;
 
 namespace VetClinic.Views.Windows
 {
@@ -10,6 +13,18 @@ namespace VetClinic.Views.Windows
         public MainWindow()
         {
             InitializeComponent();
+            PageManager.SetFrame(MainFrame);
+            PageManager.Navigate(new MenuPage());
+        }
+
+        private void MainFrame_OnContentRendered(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            PageManager.GoBack();
         }
     }
 }

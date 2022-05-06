@@ -27,7 +27,10 @@
                     Foreground="White"
                     Text="Доктор Неболит" />
             </StackPanel>
-            <Button HorizontalAlignment="Right" Content="Назад" />
+            <Button
+                HorizontalAlignment="Right"
+                Click="BtnBack_OnClick"
+                Content="Назад" />
         </Grid>
         <Frame
             Name="MainFrame"
