@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VetClinic.Models;
 using VetClinic.Models.Entity;
+using VetClinic.Views.Pages.EditPages;
 
 namespace VetClinic.Views.Pages
 {
@@ -44,15 +46,13 @@ namespace VetClinic.Views.Pages
             MessageBox.Show("Данные удалены!");
         }
 
-        private void BtnAdd_OnClick(object sender, RoutedEventArgs e)
-        {
+        private void BtnAdd_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new PetEditPage());
 
-        }
+        private void BtnEdit_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new PetEditPage((sender as Button)?.DataContext as Animal));
 
-        private void BtnEdit_OnClick(object sender, RoutedEventArgs e)
-        {
+        private void BtnMoveTypeAnimal_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new TypeAnimalEditPage());
 
-        }
+        private void BtnMoveBreed_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new TypeBreedEditPage());
 
         #endregion
 

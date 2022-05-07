@@ -75,12 +75,20 @@
                 Foreground="Green"
                 Style="{StaticResource MaterialDesignOutlinedButton}" />
             <Button
-                Margin="10,0"
+                Margin="10,5"
                 BorderBrush="Red"
                 Click="BtnDelete_OnClick"
                 Content="Удалить"
                 Foreground="Red"
                 Style="{StaticResource MaterialDesignOutlinedButton}" />
+            <Button
+                Margin="10,5"
+                Click="BtnMoveTypeAnimal_OnClick"
+                Content="Типы животных" />
+            <Button
+                Margin="10,5"
+                Click="BtnMoveBreed_OnClick"
+                Content="Породы" />
         </StackPanel>
     </Grid>
 </Page>
