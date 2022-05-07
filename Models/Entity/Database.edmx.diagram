@@ -16,6 +16,8 @@
         <AssociationConnector Association="VeterinaryModel.FK_Order_Client" ManuallyRouted="false" />
         <AssociationConnector Association="VeterinaryModel.OrderMedication" ManuallyRouted="false" />
         <AssociationConnector Association="VeterinaryModel.OrderService" />
+        <EntityTypeShape EntityType="VeterinaryModel.TypeAnimal" Width="1.5" PointX="5.375" PointY="7.875" />
+        <AssociationConnector Association="VeterinaryModel.FK_Animals_TypeAnimal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,27 +12,18 @@ namespace VetClinic.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class TypeAnimal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        public TypeAnimal()
         {
             this.Animals = new HashSet<Animal>();
-            this.Orders = new HashSet<Order>();
         }
     
         public int ID { get; set; }
-        public string Surname { get; set; }
-        public string Firstname { get; set; }
-        public string Patronymic { get; set; }
-        public string Fullname => $"{Surname} {Firstname} {Patronymic}";
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
+        public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Animal> Animals { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }

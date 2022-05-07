@@ -12,6 +12,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar(max)" />
           <Property Name="IDClient" Type="int" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -75,6 +76,13 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="TypeAnimal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+        </EntityType>
         <Association Name="FK_Animals_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
@@ -84,6 +92,18 @@
             </Principal>
             <Dependent Role="Animals">
               <PropertyRef Name="IDClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animals_TypeAnimal">
+          <End Role="TypeAnimal" Type="Self.TypeAnimal" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeAnimal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="Type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -168,8 +188,13 @@
           <EntitySet Name="OrderService" EntityType="Self.OrderService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeAnimal" EntityType="Self.TypeAnimal" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Animals_Client" Association="Self.FK_Animals_Client">
             <End Role="Client" EntitySet="Client" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animals_TypeAnimal" Association="Self.FK_Animals_TypeAnimal">
+            <End Role="TypeAnimal" EntitySet="TypeAnimal" />
             <End Role="Animals" EntitySet="Animals" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Animals" Association="Self.FK_Order_Animals">
@@ -210,6 +235,8 @@
           <Property Name="IDClient" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Animals_Client" FromRole="Animals" ToRole="Client" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Animals" FromRole="Animals" ToRole="Order" />
+          <Property Name="Type" Type="Int32" />
+          <NavigationProperty Name="TypeAnimal" Relationship="VeterinaryModel.FK_Animals_TypeAnimal" FromRole="Animal" ToRole="TypeAnimal" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -332,10 +359,35 @@
             <End Role="Order" EntitySet="Orders" />
             <End Role="Service" EntitySet="Services" />
           </AssociationSet>
+          <EntitySet Name="TypeAnimals" EntityType="VeterinaryModel.TypeAnimal" />
+          <AssociationSet Name="FK_Animals_TypeAnimal" Association="VeterinaryModel.FK_Animals_TypeAnimal">
+            <End Role="TypeAnimal" EntitySet="TypeAnimals" />
+            <End Role="Animal" EntitySet="Animals" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="OrderService">
           <End Type="VeterinaryModel.Order" Role="Order" Multiplicity="*" />
           <End Type="VeterinaryModel.Service" Role="Service" Multiplicity="*" />
+        </Association>
+        <EntityType Name="TypeAnimal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Animals" Relationship="VeterinaryModel.FK_Animals_TypeAnimal" FromRole="TypeAnimal" ToRole="Animal" />
+        </EntityType>
+        <Association Name="FK_Animals_TypeAnimal">
+          <End Type="VeterinaryModel.TypeAnimal" Role="TypeAnimal" Multiplicity="0..1" />
+          <End Type="VeterinaryModel.Animal" Role="Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeAnimal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -346,6 +398,7 @@
           <EntitySetMapping Name="Animals">
             <EntityTypeMapping TypeName="VeterinaryModel.Animal">
               <MappingFragment StoreEntitySet="Animals">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="IDClient" ColumnName="IDClient" />
@@ -419,6 +472,14 @@
               <ScalarProperty Name="ID" ColumnName="IDOrder" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="TypeAnimals">
+            <EntityTypeMapping TypeName="VeterinaryModel.TypeAnimal">
+              <MappingFragment StoreEntitySet="TypeAnimal">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
