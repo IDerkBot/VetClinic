@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using VetClinic.Models;
+using VetClinic.Models.Entity;
 
 namespace VetClinic.Views.Pages
 {
@@ -23,6 +14,29 @@ namespace VetClinic.Views.Pages
         public RegistrationPage()
         {
             InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (VeterinaryEntities.GetContext().Users.Any(x => x.Login == TbLogin.Text))
+            {
+                MessageBox.Show("Данный пользователь уже существует!");
+                return;
+            }
+
+            if (PbPassword.Password == PbConfirmPassword.Password)
+            {
+                VeterinaryEntities.GetContext().Users.Add(new User
+                {
+                    Login = TbLogin.Text,
+                    Password = PbPassword.Password
+                });
+                VeterinaryEntities.GetContext().SaveChanges();
+                MessageBox.Show("Вы успешно зарегистрировались!");
+                PageManager.GoBack();
+            }
+            else
+                MessageBox.Show("Пароли не совпадают!");
         }
     }
 }

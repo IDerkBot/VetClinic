@@ -14,7 +14,7 @@ namespace VetClinic.Views.Windows
         {
             InitializeComponent();
             PageManager.SetFrame(MainFrame);
-            PageManager.Navigate(new MenuPage());
+            PageManager.Navigate(new AuthorizationPage());
         }
 
         private void MainFrame_OnContentRendered(object sender, EventArgs e)
