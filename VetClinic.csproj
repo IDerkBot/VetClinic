@@ -80,6 +80,34 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\EditPages\ClientEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditPages\MedicationEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditPages\OrderEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditPages\PetEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditPages\ServiceEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditPages\TypeAnimalEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditPages\TypeBreedEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\MedicationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,6 +183,27 @@
     <Compile Include="Views\Pages\ClientPage.xaml.cs">
       <DependentUpon>ClientPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\EditPages\ClientEditPage.xaml.cs">
+      <DependentUpon>ClientEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\EditPages\MedicationEditPage.xaml.cs">
+      <DependentUpon>MedicationEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\EditPages\OrderEditPage.xaml.cs">
+      <DependentUpon>OrderEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\EditPages\PetEditPage.xaml.cs">
+      <DependentUpon>PetEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\EditPages\ServiceEditPage.xaml.cs">
+      <DependentUpon>ServiceEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\EditPages\TypeAnimalEditPage.xaml.cs">
+      <DependentUpon>TypeAnimalEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\EditPages\TypeBreedEditPage.xaml.cs">
+      <DependentUpon>TypeBreedEditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\MedicationsPage.xaml.cs">
       <DependentUpon>MedicationsPage.xaml</DependentUpon>
     </Compile>
@@ -214,7 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Validation\" />
-    <Folder Include="Views\Pages\EditPages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\Entity\Database.Context.tt">
