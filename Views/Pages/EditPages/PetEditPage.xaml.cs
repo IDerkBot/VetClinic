@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VetClinic.Models;
+using VetClinic.Models.Entity;
 
 namespace VetClinic.Views.Pages.EditPages
 {
@@ -20,9 +22,29 @@ namespace VetClinic.Views.Pages.EditPages
     /// </summary>
     public partial class PetEditPage : Page
     {
-        public PetEditPage()
+        private readonly Animal _currentAnimal;
+        public PetEditPage(Animal selectedAnimal = null)
         {
             InitializeComponent();
+            CbTypeAnimal.ItemsSource = VeterinaryEntities.GetContext().TypeAnimals.ToList();
+            CbClient.ItemsSource = VeterinaryEntities.GetContext().Clients.ToList();
+            _currentAnimal = selectedAnimal ?? new Animal();
+            DataContext = _currentAnimal;
+        }
+
+        private void CbTypeAnimal_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var typeAnimal = CbTypeAnimal.SelectedItem as TypeAnimal;
+            CbTypeBreed.ItemsSource = VeterinaryEntities.GetContext().TypeBreeds
+                    .Where(x => x.TypeAnimal.Title == typeAnimal.Title).ToList();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_currentAnimal.ID == 0) VeterinaryEntities.GetContext().Animals.Add(_currentAnimal);
+            VeterinaryEntities.GetContext().SaveChanges();
+            MessageBox.Show("Данные сохранены!");
+            PageManager.GoBack();
         }
     }
 }
