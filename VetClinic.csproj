@@ -145,6 +145,9 @@
     <Compile Include="Models\Entity\sysdiagram.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\TypeAnimal.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PageManager.cs" />
     <Compile Include="Views\Pages\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
@@ -211,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Validation\" />
+    <Folder Include="Views\Pages\EditPages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\Entity\Database.Context.tt">

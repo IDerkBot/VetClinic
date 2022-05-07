@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VetClinic.Models.Entity;
 
 namespace VetClinic.Views.Pages
 {
@@ -23,6 +24,29 @@ namespace VetClinic.Views.Pages
         public PetPage()
         {
             InitializeComponent();
+        }
+
+        private void PetPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            DgPets.ItemsSource = VeterinaryEntities.GetContext().Animals.ToList();
+            CbTypes.ItemsSource = VeterinaryEntities.GetContext().Animals.GroupBy(x => x.TypeAnimal.Title)
+                .Select(x => x.Key).ToList();
+        }
+
+        private void TbSearch_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchText = TbSearch.Text;
+            DgPets.ItemsSource = VeterinaryEntities.GetContext().Animals.Where(x => x.Title.ToLower().Contains(searchText)).ToList();
+        }
+
+        private void BtnDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BtnAdd_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
