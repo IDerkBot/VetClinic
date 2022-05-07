@@ -10,9 +10,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IDClient" Type="int" />
-          <Property Name="Type" Type="int" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Breed" Type="int" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -83,6 +84,23 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="TypeBreed">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Access" Type="tinyint" />
+        </EntityType>
         <Association Name="FK_Animals_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
@@ -96,7 +114,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Animals_TypeAnimal">
-          <End Role="TypeAnimal" Type="Self.TypeAnimal" Multiplicity="0..1" />
+          <End Role="TypeAnimal" Type="Self.TypeAnimal" Multiplicity="1" />
           <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypeAnimal">
@@ -104,6 +122,18 @@
             </Principal>
             <Dependent Role="Animals">
               <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animals_TypeBreed">
+          <End Role="TypeBreed" Type="Self.TypeBreed" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeBreed">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="Breed" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -179,6 +209,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TypeBreed_TypeAnimal">
+          <End Role="TypeAnimal" Type="Self.TypeAnimal" Multiplicity="1" />
+          <End Role="TypeBreed" Type="Self.TypeBreed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeAnimal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TypeBreed">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="VeterinaryModelStoreContainer">
           <EntitySet Name="Animals" EntityType="Self.Animals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
@@ -189,12 +231,18 @@
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeAnimal" EntityType="Self.TypeAnimal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeBreed" EntityType="Self.TypeBreed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Animals_Client" Association="Self.FK_Animals_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Animals" EntitySet="Animals" />
           </AssociationSet>
           <AssociationSet Name="FK_Animals_TypeAnimal" Association="Self.FK_Animals_TypeAnimal">
             <End Role="TypeAnimal" EntitySet="TypeAnimal" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animals_TypeBreed" Association="Self.FK_Animals_TypeBreed">
+            <End Role="TypeBreed" EntitySet="TypeBreed" />
             <End Role="Animals" EntitySet="Animals" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Animals" Association="Self.FK_Order_Animals">
@@ -221,6 +269,10 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="OrderService" EntitySet="OrderService" />
           </AssociationSet>
+          <AssociationSet Name="FK_TypeBreed_TypeAnimal" Association="Self.FK_TypeBreed_TypeAnimal">
+            <End Role="TypeAnimal" EntitySet="TypeAnimal" />
+            <End Role="TypeBreed" EntitySet="TypeBreed" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -231,12 +283,14 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IDClient" Type="Int32" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Breed" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Animals_Client" FromRole="Animals" ToRole="Client" />
+          <NavigationProperty Name="TypeAnimal" Relationship="Self.FK_Animals_TypeAnimal" FromRole="Animals" ToRole="TypeAnimal" />
+          <NavigationProperty Name="TypeBreed" Relationship="Self.FK_Animals_TypeBreed" FromRole="Animals" ToRole="TypeBreed" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Animals" FromRole="Animals" ToRole="Order" />
-          <Property Name="Type" Type="Int32" />
-          <NavigationProperty Name="TypeAnimal" Relationship="VeterinaryModel.FK_Animals_TypeAnimal" FromRole="Animal" ToRole="TypeAnimal" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -271,7 +325,7 @@
           <NavigationProperty Name="Animal" Relationship="Self.FK_Order_Animals" FromRole="Order" ToRole="Animals" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Order" ToRole="Client" />
           <NavigationProperty Name="Medications" Relationship="Self.OrderMedication" FromRole="Order" ToRole="Medication" />
-          <NavigationProperty Name="Services" Relationship="VeterinaryModel.OrderService" FromRole="Order" ToRole="Service" />
+          <NavigationProperty Name="Services" Relationship="Self.OrderService" FromRole="Order" ToRole="Service" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -280,7 +334,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Orders" Relationship="VeterinaryModel.OrderService" FromRole="Service" ToRole="Order" />
+          <NavigationProperty Name="Orders" Relationship="Self.OrderService" FromRole="Service" ToRole="Order" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -292,6 +346,34 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="TypeAnimal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_TypeAnimal" FromRole="TypeAnimal" ToRole="Animals" />
+          <NavigationProperty Name="TypeBreeds" Relationship="Self.FK_TypeBreed_TypeAnimal" FromRole="TypeAnimal" ToRole="TypeBreed" />
+        </EntityType>
+        <EntityType Name="TypeBreed">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_TypeBreed" FromRole="TypeBreed" ToRole="Animals" />
+          <NavigationProperty Name="TypeAnimal" Relationship="Self.FK_TypeBreed_TypeAnimal" FromRole="TypeBreed" ToRole="TypeAnimal" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Access" Type="Byte" />
+        </EntityType>
         <Association Name="FK_Animals_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
@@ -301,6 +383,30 @@
             </Principal>
             <Dependent Role="Animals">
               <PropertyRef Name="IDClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animals_TypeAnimal">
+          <End Role="TypeAnimal" Type="Self.TypeAnimal" Multiplicity="1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeAnimal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animals_TypeBreed">
+          <End Role="TypeBreed" Type="Self.TypeBreed" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeBreed">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="Breed" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -328,9 +434,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TypeBreed_TypeAnimal">
+          <End Role="TypeAnimal" Type="Self.TypeAnimal" Multiplicity="1" />
+          <End Role="TypeBreed" Type="Self.TypeBreed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeAnimal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TypeBreed">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="OrderMedication">
           <End Role="Medication" Type="Self.Medication" Multiplicity="*" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
+        </Association>
+        <Association Name="OrderService">
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
         </Association>
         <EntityContainer Name="VeterinaryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Animals" EntityType="Self.Animal" />
@@ -339,8 +461,19 @@
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Services" EntityType="Self.Service" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TypeAnimals" EntityType="Self.TypeAnimal" />
+          <EntitySet Name="TypeBreeds" EntityType="Self.TypeBreed" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Animals_Client" Association="Self.FK_Animals_Client">
             <End Role="Client" EntitySet="Clients" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animals_TypeAnimal" Association="Self.FK_Animals_TypeAnimal">
+            <End Role="TypeAnimal" EntitySet="TypeAnimals" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animals_TypeBreed" Association="Self.FK_Animals_TypeBreed">
+            <End Role="TypeBreed" EntitySet="TypeBreeds" />
             <End Role="Animals" EntitySet="Animals" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Animals" Association="Self.FK_Order_Animals">
@@ -351,44 +484,19 @@
             <End Role="Client" EntitySet="Clients" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_TypeBreed_TypeAnimal" Association="Self.FK_TypeBreed_TypeAnimal">
+            <End Role="TypeAnimal" EntitySet="TypeAnimals" />
+            <End Role="TypeBreed" EntitySet="TypeBreeds" />
+          </AssociationSet>
           <AssociationSet Name="OrderMedication" Association="Self.OrderMedication">
             <End Role="Medication" EntitySet="Medications" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="OrderService" Association="VeterinaryModel.OrderService">
+          <AssociationSet Name="OrderService" Association="Self.OrderService">
             <End Role="Order" EntitySet="Orders" />
             <End Role="Service" EntitySet="Services" />
           </AssociationSet>
-          <EntitySet Name="TypeAnimals" EntityType="VeterinaryModel.TypeAnimal" />
-          <AssociationSet Name="FK_Animals_TypeAnimal" Association="VeterinaryModel.FK_Animals_TypeAnimal">
-            <End Role="TypeAnimal" EntitySet="TypeAnimals" />
-            <End Role="Animal" EntitySet="Animals" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="OrderService">
-          <End Type="VeterinaryModel.Order" Role="Order" Multiplicity="*" />
-          <End Type="VeterinaryModel.Service" Role="Service" Multiplicity="*" />
-        </Association>
-        <EntityType Name="TypeAnimal">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Animals" Relationship="VeterinaryModel.FK_Animals_TypeAnimal" FromRole="TypeAnimal" ToRole="Animal" />
-        </EntityType>
-        <Association Name="FK_Animals_TypeAnimal">
-          <End Type="VeterinaryModel.TypeAnimal" Role="TypeAnimal" Multiplicity="0..1" />
-          <End Type="VeterinaryModel.Animal" Role="Animal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypeAnimal">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Animal">
-              <PropertyRef Name="Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -398,10 +506,11 @@
           <EntitySetMapping Name="Animals">
             <EntityTypeMapping TypeName="VeterinaryModel.Animal">
               <MappingFragment StoreEntitySet="Animals">
-                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="IDClient" ColumnName="IDClient" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Breed" ColumnName="Breed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -456,6 +565,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TypeAnimals">
+            <EntityTypeMapping TypeName="VeterinaryModel.TypeAnimal">
+              <MappingFragment StoreEntitySet="TypeAnimal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeBreeds">
+            <EntityTypeMapping TypeName="VeterinaryModel.TypeBreed">
+              <MappingFragment StoreEntitySet="TypeBreed">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VeterinaryModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Access" ColumnName="Access" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="OrderMedication" TypeName="VeterinaryModel.OrderMedication" StoreEntitySet="OrderMedication">
             <EndProperty Name="Medication">
               <ScalarProperty Name="ID" ColumnName="IDMedication" />
@@ -465,21 +601,13 @@
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="OrderService" TypeName="VeterinaryModel.OrderService" StoreEntitySet="OrderService">
-            <EndProperty Name="Service">
-              <ScalarProperty Name="ID" ColumnName="IDService" />
-            </EndProperty>
             <EndProperty Name="Order">
               <ScalarProperty Name="ID" ColumnName="IDOrder" />
             </EndProperty>
+            <EndProperty Name="Service">
+              <ScalarProperty Name="ID" ColumnName="IDService" />
+            </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="TypeAnimals">
-            <EntityTypeMapping TypeName="VeterinaryModel.TypeAnimal">
-              <MappingFragment StoreEntitySet="TypeAnimal">
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

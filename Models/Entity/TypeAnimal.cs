@@ -18,6 +18,7 @@ namespace VetClinic.Models.Entity
         public TypeAnimal()
         {
             this.Animals = new HashSet<Animal>();
+            this.TypeBreeds = new HashSet<TypeBreed>();
         }
     
         public int ID { get; set; }
@@ -25,5 +26,7 @@ namespace VetClinic.Models.Entity
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Animal> Animals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TypeBreed> TypeBreeds { get; set; }
     }
 }

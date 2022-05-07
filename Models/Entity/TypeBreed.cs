@@ -12,24 +12,20 @@ namespace VetClinic.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Animal
+    public partial class TypeBreed
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Animal()
+        public TypeBreed()
         {
-            this.Orders = new HashSet<Order>();
+            this.Animals = new HashSet<Animal>();
         }
     
         public int ID { get; set; }
-        public string Title { get; set; }
-        public Nullable<int> IDClient { get; set; }
         public int Type { get; set; }
-        public Nullable<int> Breed { get; set; }
+        public string Title { get; set; }
     
-        public virtual Client Client { get; set; }
-        public virtual TypeAnimal TypeAnimal { get; set; }
-        public virtual TypeBreed TypeBreed { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Animal> Animals { get; set; }
+        public virtual TypeAnimal TypeAnimal { get; set; }
     }
 }

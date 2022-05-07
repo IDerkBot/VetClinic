@@ -40,5 +40,7 @@ namespace VetClinic.Models.Entity
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TypeAnimal> TypeAnimals { get; set; }
+        public virtual DbSet<TypeBreed> TypeBreeds { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
