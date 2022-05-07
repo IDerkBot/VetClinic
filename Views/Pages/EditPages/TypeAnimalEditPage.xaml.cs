@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using VetClinic.Models.Entity;
 
 namespace VetClinic.Views.Pages.EditPages
 {
@@ -20,9 +10,26 @@ namespace VetClinic.Views.Pages.EditPages
     /// </summary>
     public partial class TypeAnimalEditPage : Page
     {
-        public TypeAnimalEditPage()
+        private TypeAnimal _currentTypeAnimal;
+        public TypeAnimalEditPage(TypeAnimal selectedTypeAnimal = null)
         {
             InitializeComponent();
+            LvItems.ItemsSource = VeterinaryEntities.GetContext().TypeAnimals.ToList();
+            _currentTypeAnimal = selectedTypeAnimal ?? new TypeAnimal();
+            DataContext = _currentTypeAnimal;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_currentTypeAnimal.ID == 0) VeterinaryEntities.GetContext().TypeAnimals.Add(_currentTypeAnimal);
+            VeterinaryEntities.GetContext().SaveChanges();
+            MessageBox.Show("Данные сохранены");
+        }
+
+        private void LvItems_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _currentTypeAnimal = (TypeAnimal)LvItems.SelectedItem;
+            DataContext = _currentTypeAnimal;
         }
     }
 }
