@@ -17,6 +17,8 @@ namespace VetClinic.Views.Pages
             InitializeComponent();
         }
 
+        private bool _isClear;
+
         private void PetPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             DgPets.ItemsSource = VeterinaryEntities.GetContext().Animals.ToList();
@@ -43,6 +45,15 @@ namespace VetClinic.Views.Pages
 
         private void BtnMoveBreed_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new TypeBreedEditPage());
 
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            _isClear = true;
+            TbSearch.Text = "";
+            CbTypes.SelectedItem = null;
+            _isClear = false;
+            DgPets.ItemsSource = VeterinaryEntities.GetContext().Animals.ToList();
+        }
+
         #endregion
 
         #region События изменений
@@ -55,6 +66,7 @@ namespace VetClinic.Views.Pages
 
         private void CbTypes_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (_isClear) return;
             var list = VeterinaryEntities.GetContext().Animals
                 .Where(x => x.TypeAnimal.Title == CbTypes.SelectedItem.ToString()).ToList();
             DgPets.ItemsSource = list;

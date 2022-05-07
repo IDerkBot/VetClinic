@@ -69,6 +69,10 @@
                 SelectionChanged="CbTypes_OnSelectionChanged" />
             <Button
                 Margin="10,5"
+                Click="ButtonBase_OnClick"
+                Content="Сбросить параметры поиска" />
+            <Button
+                Margin="10,5"
                 BorderBrush="Green"
                 Click="BtnAdd_OnClick"
                 Content="Добавить"
