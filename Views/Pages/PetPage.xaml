@@ -44,7 +44,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Style="{StaticResource MaterialDesignOutlinedButton}">
+                            <Button Click="BtnEdit_OnClick" Style="{StaticResource MaterialDesignOutlinedButton}">
                                 <md:PackIcon Kind="Pencil" />
                             </Button>
                         </DataTemplate>
@@ -65,7 +65,8 @@
                 Name="CbTypes"
                 Margin="10,5"
                 md:HintAssist.Hint="Тип"
-                md:HintAssist.IsFloating="True" />
+                md:HintAssist.IsFloating="True"
+                SelectionChanged="CbTypes_OnSelectionChanged" />
             <Button
                 Margin="10,5"
                 BorderBrush="Green"

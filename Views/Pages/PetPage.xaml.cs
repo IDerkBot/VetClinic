@@ -33,20 +33,42 @@ namespace VetClinic.Views.Pages
                 .Select(x => x.Key).ToList();
         }
 
+        #region События на нажатие кнопок
+
+        private void BtnDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            var items = DgPets.SelectedItems.Cast<Animal>().ToList();
+            if(MessageBox.Show($"Вы действительно хотите удалить {items.Count} элементов", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            VeterinaryEntities.GetContext().Animals.RemoveRange(items);
+            VeterinaryEntities.GetContext().SaveChanges();
+            MessageBox.Show("Данные удалены!");
+        }
+
+        private void BtnAdd_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnEdit_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region События изменений
+
         private void TbSearch_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             var searchText = TbSearch.Text;
             DgPets.ItemsSource = VeterinaryEntities.GetContext().Animals.Where(x => x.Title.ToLower().Contains(searchText)).ToList();
         }
 
-        private void BtnDelete_OnClick(object sender, RoutedEventArgs e)
+        private void CbTypes_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
-        private void BtnAdd_OnClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        #endregion
     }
 }
