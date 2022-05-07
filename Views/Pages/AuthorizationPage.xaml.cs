@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using VetClinic.Models;
+using VetClinic.Models.Entity;
 
 namespace VetClinic.Views.Pages
 {
@@ -24,5 +15,21 @@ namespace VetClinic.Views.Pages
         {
             InitializeComponent();
         }
+
+        private void BtnAuth_OnClick(object sender, RoutedEventArgs e)
+        {
+            var login = TbLogin.Text;
+            var password = PbPassword.Password;
+            if (VeterinaryEntities.GetContext().Users.Any(x => x.Login == login))
+            {
+                var user = VeterinaryEntities.GetContext().Users.Single(x => x.Login == login);
+                if (user.Password == password)
+                {
+                    PageManager.Navigate(new MenuPage());
+                }
+            }
+        }
+
+        private void BtnReg_OnClick(object sender, RoutedEventArgs e) => PageManager.Navigate(new RegistrationPage());
     }
 }
