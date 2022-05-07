@@ -13,7 +13,7 @@
     d:DesignWidth="340"
     mc:Ignorable="d">
 
-    <WrapPanel Width="340" Orientation="Horizontal">
+    <WrapPanel MinWidth="340" Orientation="Horizontal">
         <Button
             Width="150"
             Height="100"
