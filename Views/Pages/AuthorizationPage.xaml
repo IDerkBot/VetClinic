@@ -9,8 +9,9 @@
     Title="AuthorizationPage"
     HorizontalAlignment="Center"
     VerticalAlignment="Center"
-    d:DesignHeight="160"
+    d:DesignHeight="200"
     d:DesignWidth="300"
+    Loaded="AuthorizationPage_OnLoaded"
     mc:Ignorable="d">
 
     <StackPanel Width="300">
@@ -22,6 +23,10 @@
             Name="PbPassword"
             md:HintAssist.Hint="Пароль"
             md:HintAssist.IsFloating="True" />
+        <CheckBox
+            Name="IsRemember"
+            Margin="10"
+            Content="Запомнить" />
         <Button
             Margin="0,5"
             Click="BtnAuth_OnClick"
