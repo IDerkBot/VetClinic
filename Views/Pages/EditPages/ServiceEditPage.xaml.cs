@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using VetClinic.Models;
+using VetClinic.Models.Entity;
 
 namespace VetClinic.Views.Pages.EditPages
 {
@@ -20,9 +10,20 @@ namespace VetClinic.Views.Pages.EditPages
     /// </summary>
     public partial class ServiceEditPage : Page
     {
-        public ServiceEditPage()
+        private readonly Service _currentService;
+        public ServiceEditPage(Service selectedService = null)
         {
             InitializeComponent();
+            _currentService = selectedService ?? new Service();
+            DataContext = _currentService;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_currentService.ID == 0) VeterinaryEntities.GetContext().Services.Add(_currentService);
+            VeterinaryEntities.GetContext().SaveChanges();
+            MessageBox.Show("Данные сохранены!");
+            PageManager.GoBack();
         }
     }
 }
