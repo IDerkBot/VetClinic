@@ -42,6 +42,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDClient" Type="int" />
           <Property Name="IDPet" Type="int" />
+          <Property Name="Sum" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="OrderMedication">
           <Key>
@@ -326,6 +327,7 @@
           <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Order" ToRole="Client" />
           <NavigationProperty Name="Medications" Relationship="Self.OrderMedication" FromRole="Order" ToRole="Medication" />
           <NavigationProperty Name="Services" Relationship="Self.OrderService" FromRole="Order" ToRole="Service" />
+          <Property Name="Sum" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -539,6 +541,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="VeterinaryModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="IDClient" ColumnName="IDClient" />
                 <ScalarProperty Name="IDPet" ColumnName="IDPet" />

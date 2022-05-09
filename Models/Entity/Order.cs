@@ -24,6 +24,7 @@ namespace VetClinic.Models.Entity
         public int ID { get; set; }
         public Nullable<int> IDClient { get; set; }
         public Nullable<int> IDPet { get; set; }
+        public Nullable<decimal> Sum { get; set; }
     
         public virtual Animal Animal { get; set; }
         public virtual Client Client { get; set; }

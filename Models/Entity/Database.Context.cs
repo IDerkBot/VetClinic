@@ -16,7 +16,6 @@ namespace VetClinic.Models.Entity
     public partial class VeterinaryEntities : DbContext
     {
         private static VeterinaryEntities _ctx;
-
         public static VeterinaryEntities GetContext()
         {
             if (_ctx == null)
