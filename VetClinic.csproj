@@ -16,6 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -153,6 +154,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\Base\Command.cs" />
+    <Compile Include="Commands\LambdaCommand.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\Entity\Animal.cs">
@@ -199,6 +202,9 @@
     </Compile>
     <Compile Include="Models\FileManager.cs" />
     <Compile Include="Models\PageManager.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModel\Base\ViewModel.cs" />
+    <Compile Include="ViewModel\ClientsViewModel.cs" />
     <Compile Include="Views\Pages\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
     </Compile>
